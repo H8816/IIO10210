@@ -1,30 +1,27 @@
-/*
-#pragma once
-#ifndef AnimationH 
-#define AnimationH
-
+/*#pragma once
+#ifndef ANIMATIONH
+#define ANIMATIONH
+#include <SFML/Graphics.hpp>
 #include <vector>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include "SFML/Window.hpp"
+#include "SFML/Graphics.hpp"
 
-class Animation
-{
+class Animation {
 public:
+
 	Animation();
 
-	void addFrame(sf::IntRect rect);
-	void setSpriteSheet(const sf::Texture& texture);
-	const sf::Texture* getSpriteSheet() const;
-	std::size_t getSize() const;
-	const sf::IntRect& getFrame(std::size_t n) const;
+	void moveUp();
+	void moveDown();
+	void moveLeft();
+	void moveRight();
 
-private:
-	std::vector<sf::IntRect> m_frames;
-	const sf::Texture* m_texture;
+	sf::Texture texture;
+
+
 };
 
 
-
-
-#endif
-*/
+#endif*/

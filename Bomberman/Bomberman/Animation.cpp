@@ -1,30 +1,79 @@
-/*
-#include "Animation.h"
-#include "Player.h"
+/*#include "animation.h"
+#include "SFML/Window.hpp"
+#include "SFML/Graphics.hpp"
 
-Animation::Animation() : m_texture(NULL){
+Animation::Animation() {
+	texture.loadFromFile("liikkeet.png");
+}
+
+void Animation::moveLeft() {
+
+	sf::IntRect rectSourceSprite(0,40,40,40);
+	sf::Sprite sprite(texture, rectSourceSprite);
+	sf::Clock clock;
+
+		if (clock.getElapsedTime().asSeconds() > 1.0f) {
+			if (rectSourceSprite.left == 80)
+				rectSourceSprite.left = 0;
+			else
+				rectSourceSprite.left += 40;
+
+			sprite.setTextureRect(rectSourceSprite);
+			clock.restart();
+		}
 
 }
 
-void Animation::addFrame(sf::IntRect rect){
-	m_frames.push_back(rect);
+void Animation::moveRight() {
+
+	sf::IntRect rectSourceSprite(0, 80, 40, 40);
+	sf::Sprite sprite(texture, rectSourceSprite);
+	sf::Clock clock;
+
+	if (clock.getElapsedTime().asSeconds() > 1.0f) {
+		if (rectSourceSprite.left == 80)
+			rectSourceSprite.left = 0;
+		else
+			rectSourceSprite.left += 40;
+
+		sprite.setTextureRect(rectSourceSprite);
+		clock.restart();
+	}
+
 }
 
-void Animation::setSpriteSheet(const sf::Texture& texture){
-	m_texture = &texture;
+void Animation::moveUp() {
+
+	sf::IntRect rectSourceSprite(0, 0, 40, 40);
+	sf::Sprite sprite(texture, rectSourceSprite);
+	sf::Clock clock;
+
+	if (clock.getElapsedTime().asSeconds() > 1.0f) {
+		if (rectSourceSprite.left == 80)
+			rectSourceSprite.left = 0;
+		else
+			rectSourceSprite.left += 40;
+
+		sprite.setTextureRect(rectSourceSprite);
+		clock.restart();
+	}
+
 }
 
-const sf::Texture* Animation::getSpriteSheet() const{
-	return m_texture;
-}
+void Animation::moveDown() {
 
-std::size_t Animation::getSize() const{
-	return m_frames.size();
-}
+	sf::IntRect rectSourceSprite(0, 40, 40, 40);
+	sf::Sprite sprite(texture, rectSourceSprite);
+	sf::Clock clock;
 
-const sf::IntRect& Animation::getFrame(std::size_t n) const{
-	return m_frames[n];
-}
+	if (clock.getElapsedTime().asSeconds() > 1.0f) {
+		if (rectSourceSprite.left == 80)
+			rectSourceSprite.left = 0;
+		else
+			rectSourceSprite.left += 40;
 
+		sprite.setTextureRect(rectSourceSprite);
+		clock.restart();
+	}
 
-*/
+}*/
