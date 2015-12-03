@@ -38,7 +38,7 @@ void Character::moveDown(int downcoord) {
 	pSprite.setTextureRect(sf::IntRect(downcoord, 80, 40, 40));
 
 	//Animaatio
-	
+
 
 }
 void Character::moveLeft(int leftcoord) {
@@ -48,7 +48,7 @@ void Character::moveLeft(int leftcoord) {
 	pSprite.setTextureRect(sf::IntRect(leftcoord, 120, 40, 40));
 
 	//Animaatio
-	
+
 }
 
 void Character::moveRight(int rightcoord) {
@@ -59,12 +59,10 @@ void Character::moveRight(int rightcoord) {
 
 	//Animaatio
 
-	}
-
-
-void Character::dropBomb() {
-
 }
+
+
+//void Character::dropBomb() {}
 
 //Healthin getterit ja setterit
 void Character::setHealth(int hp) {

@@ -1,79 +1,36 @@
-/*#include "animation.h"
-#include "SFML/Window.hpp"
-#include "SFML/Graphics.hpp"
+#include "animation.h"
+#include <iostream>
+using namespace std;
 
-Animation::Animation() {
-	texture.loadFromFile("liikkeet.png");
+
+//Konstruktori
+Animation::Animation(const sf::Texture& imagePath) :
+	bombSprite(imagePath) {
+	bombSprite.setTextureRect(sf::IntRect(0, 0, 40, 40));
 }
 
-void Animation::moveLeft() {
+//Destruktori
+Animation::~Animation() {
+	//deletoi pommin kun se on kajahtanut ehkä????
+}
 
-	sf::IntRect rectSourceSprite(0,40,40,40);
-	sf::Sprite sprite(texture, rectSourceSprite);
-	sf::Clock clock;
-
-		if (clock.getElapsedTime().asSeconds() > 1.0f) {
-			if (rectSourceSprite.left == 80)
-				rectSourceSprite.left = 0;
-			else
-				rectSourceSprite.left += 40;
-
-			sprite.setTextureRect(rectSourceSprite);
-			clock.restart();
-		}
+//Piirtäminen
+void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+	target.draw(bombSprite, states);
 
 }
 
-void Animation::moveRight() {
 
-	sf::IntRect rectSourceSprite(0, 80, 40, 40);
-	sf::Sprite sprite(texture, rectSourceSprite);
-	sf::Clock clock;
+void Animation::getPosx(float x) {
+	
+}
 
-	if (clock.getElapsedTime().asSeconds() > 1.0f) {
-		if (rectSourceSprite.left == 80)
-			rectSourceSprite.left = 0;
-		else
-			rectSourceSprite.left += 40;
-
-		sprite.setTextureRect(rectSourceSprite);
-		clock.restart();
-	}
+void Animation::getPosy() {
 
 }
 
-void Animation::moveUp() {
+void Animation::dropBomb() {
 
-	sf::IntRect rectSourceSprite(0, 0, 40, 40);
-	sf::Sprite sprite(texture, rectSourceSprite);
-	sf::Clock clock;
-
-	if (clock.getElapsedTime().asSeconds() > 1.0f) {
-		if (rectSourceSprite.left == 80)
-			rectSourceSprite.left = 0;
-		else
-			rectSourceSprite.left += 40;
-
-		sprite.setTextureRect(rectSourceSprite);
-		clock.restart();
-	}
 
 }
 
-void Animation::moveDown() {
-
-	sf::IntRect rectSourceSprite(0, 40, 40, 40);
-	sf::Sprite sprite(texture, rectSourceSprite);
-	sf::Clock clock;
-
-	if (clock.getElapsedTime().asSeconds() > 1.0f) {
-		if (rectSourceSprite.left == 80)
-			rectSourceSprite.left = 0;
-		else
-			rectSourceSprite.left += 40;
-
-		sprite.setTextureRect(rectSourceSprite);
-		clock.restart();
-	}
-
-}*/

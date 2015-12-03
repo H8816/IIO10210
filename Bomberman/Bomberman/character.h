@@ -28,7 +28,7 @@ public:
 	sf::Texture texture;
 
 	//Tekemättä //////////////////////////////////////////////////////////////
-	void dropBomb();
+	//void dropBomb();
 
 
 	//Healthin getterit ja setterit

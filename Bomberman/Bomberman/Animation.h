@@ -1,4 +1,4 @@
-/*#pragma once
+#pragma once
 #ifndef ANIMATIONH
 #define ANIMATIONH
 #include <SFML/Graphics.hpp>
@@ -8,20 +8,38 @@
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 
-class Animation {
+class Animation : public sf::Drawable {
+
 public:
 
-	Animation();
+	//enum Direction { up, down, left, right };
 
-	void moveUp();
-	void moveDown();
-	void moveLeft();
-	void moveRight();
+	//Konstruktori
+	Animation(const sf::Texture& imagePath);
+
+	//Destruktori
+	virtual ~Animation();
+
+	//Piirtäminen
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	sf::Texture texture;
 
 
+
+	//Tekemättä //////////////////////////////////////////////////////////////
+	void getPosx(float);
+	void getPosy();
+	void setPosx();
+	void setPosy();
+	void dropBomb();
+
+private:
+	sf::Sprite bombSprite;
+	sf::Vector2i bombSource;
+	int width, height;
 };
 
 
-#endif*/
+
+#endif

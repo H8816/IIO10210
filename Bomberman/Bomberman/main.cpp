@@ -8,11 +8,12 @@
 #include "Gamestatus.h"
 #include "Tilemap.h"
 #include "Character.h"
+#include "Animation.h"
 
 using namespace std;
 
 int main() {
-	
+
 	// Animaation muuttujia
 	int call = 0;
 	int movefactor = 300;
@@ -29,10 +30,20 @@ int main() {
 	//Characterin luonti
 	sf::Texture pTexture;
 	if (!pTexture.loadFromFile("liikkeet.png")) {
-		cerr << "Texture Error" << endl;
+		cerr << "Character texture error" << endl;
 	}
 
 	Character				p1(pTexture);
+
+	// Pommin luonti
+	sf::Texture pBomb;
+	if (!pBomb.loadFromFile("bomb.png")) {
+		cerr << "Bomb texture error" << endl;
+	}
+
+	Animation				bomb(pBomb);
+
+
 
 
 	//LEVEL1 Tilemapin alustus
@@ -62,39 +73,43 @@ int main() {
 			//Pelaajan piirto ja ohjaus
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //move up
 			{
-				if (call < movefactor * 1) p1.moveUp(0); 
+				if (call < movefactor * 1) p1.moveUp(0);
 				else if (call < movefactor * 2) p1.moveUp(40);
+				else if (call < movefactor * 3) p1.moveUp(0);
 				else p1.moveUp(80);
 				call++;
-				if (call == movefactor * 3) call = 0;
+				if (call == movefactor * 4) call = 0;
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //move down
 			{
 				if (call < movefactor * 1) p1.moveDown(0);
 				else if (call < movefactor * 2) p1.moveDown(40);
+				else if (call < movefactor * 3) p1.moveDown(0);
 				else p1.moveDown(80);
 				call++;
-				if (call == movefactor * 3) call = 0;
+				if (call == movefactor * 4) call = 0;
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //move right
 			{
 				if (call < movefactor * 1) p1.moveRight(0);
 				else if (call < movefactor * 2) p1.moveRight(40);
+				else if (call < movefactor * 3) p1.moveRight(0);
 				else p1.moveRight(80);
 				call++;
-				if (call == movefactor * 3) call = 0;
+				if (call == movefactor * 4) call = 0;
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //move left
 			{
 				if (call < movefactor * 1) p1.moveLeft(0);
 				else if (call < movefactor * 2) p1.moveLeft(40);
+				else if (call < movefactor * 3) p1.moveLeft(0);
 				else p1.moveLeft(80);
 				call++;
-				if (call == movefactor * 3) call = 0;
+				if (call == movefactor * 4) call = 0;
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) //Drop bomb
 			{
-			
+				bomb.dropBomb();
 			}
 			window.draw(p1);
 			window.display();

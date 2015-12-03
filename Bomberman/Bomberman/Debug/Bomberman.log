@@ -1,23 +1,17 @@
-﻿Build started 1.12.2015 10:58:39.
-     1>Project "Z:\Dox\Olio2\IIO10210\Bomberman\Bomberman\Bomberman.vcxproj" on node 2 (Build target(s)).
+﻿Build started 3.12.2015 19:06:15.
+     1>Project "G:\olio2\IIO10210\Bomberman\Bomberman\Bomberman.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"Z:\Dox\Olio2\IIO10210\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Character.cpp main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"G:\olio2\IIO10210\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
-         Character.cpp
-     1>z:\dox\olio2\iio10210\bomberman\bomberman\character.cpp(23): warning C4305: 'argument': truncation from 'double' to 'float'
-     1>z:\dox\olio2\iio10210\bomberman\bomberman\character.cpp(36): warning C4305: 'argument': truncation from 'double' to 'float'
-     1>z:\dox\olio2\iio10210\bomberman\bomberman\character.cpp(46): warning C4305: 'argument': truncation from 'double' to 'float'
-     1>z:\dox\olio2\iio10210\bomberman\bomberman\character.cpp(56): warning C4305: 'argument': truncation from 'double' to 'float'
-         Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"Z:\Dox\Olio2\IIO10210\Bomberman\Debug\Bomberman.exe" /INCREMENTAL /NOLOGO /LIBPATH:"Z:\Dox\Olio2\IIO10210\SFML-2.3.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"Z:\Dox\Olio2\IIO10210\Bomberman\Debug\Bomberman.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Z:\Dox\Olio2\IIO10210\Bomberman\Debug\Bomberman.lib" /MACHINE:X86 Debug\Animation.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"G:\olio2\IIO10210\Bomberman\Debug\Bomberman.exe" /INCREMENTAL /NOLOGO /LIBPATH:"G:\olio2\IIO10210\SFML-2.3.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"G:\olio2\IIO10210\Bomberman\Debug\Bomberman.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"G:\olio2\IIO10210\Bomberman\Debug\Bomberman.lib" /MACHINE:X86 Debug\Animation.obj
          Debug\Character.obj
          Debug\Gamestatus.obj
          Debug\main.obj
          Debug\Tilemap.obj
-         Bomberman.vcxproj -> Z:\Dox\Olio2\IIO10210\Bomberman\Debug\Bomberman.exe
-     1>Done Building Project "Z:\Dox\Olio2\IIO10210\Bomberman\Bomberman\Bomberman.vcxproj" (Build target(s)).
+         Bomberman.vcxproj -> G:\olio2\IIO10210\Bomberman\Debug\Bomberman.exe
+     1>Done Building Project "G:\olio2\IIO10210\Bomberman\Bomberman\Bomberman.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.61
+Time Elapsed 00:00:01.09
