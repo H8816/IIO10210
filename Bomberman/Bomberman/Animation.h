@@ -25,8 +25,6 @@ public:
 
 	sf::Texture texture;
 
-
-
 	//Tekemättä //////////////////////////////////////////////////////////////
 	void getPosx(float);
 	void getPosy();

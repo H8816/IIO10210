@@ -21,16 +21,7 @@ void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 
-void Animation::getPosx(float x) {
-	
-}
-
-void Animation::getPosy() {
-
-}
-
 void Animation::dropBomb() {
-
-
+	
 }
 
