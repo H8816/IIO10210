@@ -1,10 +1,9 @@
 #include "Tilemap.h"
 
-
-
 void Tilemap::init() {
 
 	ifstream openfile("lvl1.txt");
+	map.clear();
 
 	if (openfile.is_open()) {
 
@@ -15,26 +14,39 @@ void Tilemap::init() {
 
 		//Tiletekstitiedoston luenta  ja muuntaminen kuviksi
 		while (!openfile.eof()) {
+			string str, value;
+			getline(openfile, str);
+			stringstream stream(str);
 
-			string loader;
-			openfile >> loader;
-			char x = loader[0], y = loader[2];
-			if (!isdigit(x) || !isdigit(y))
-				map[loadCounter.x][loadCounter.y] = sf::Vector2i(-1, -1);
-			else
-				map[loadCounter.x][loadCounter.y] = sf::Vector2i(x - '0', y - '0');
-			// vaihtaa tileteksti tiedoston rivi‰, kun rivilt‰ loppuu tileID
-			if (openfile.peek() == '\n') {
+			while (getline(stream, value, ' ')) {
+				if (value.length() > 0) {
+					string xx = value.substr(0, value.find(','));
+					string yy = value.substr(value.find(',') + 1);
 
-				//Resetoi x koordinaatin 0
-				loadCounter.x = 0;
-				// lis‰‰ y koordinaattia yhdell‰
-				loadCounter.y++;
+					int x, y, i, j;
+
+					for (i = 0; i < xx.length(); i++) {
+						if (!isdigit(xx[i]))
+							break;
+					}
+					for (j = 0; j < yy.length(); j++) {
+						if (!isdigit(yy[j]))
+							break;
+					}
+
+					x = (i == xx.length()) ? atoi(xx.c_str()) : -1;
+					y = (j == yy.length()) ? atoi(yy.c_str()) : -1;
+
+					tempMap.push_back(sf::Vector2i(x, y));
+				}
 			}
-			else
-				loadCounter.x++;
+			if (tempMap.size() > 0) {
+				map.push_back(tempMap);
+				tempMap.clear();
+			}
+
 		}
-		loadCounter.y++;
+		map.push_back(tempMap);
 
 	}
 }
@@ -51,10 +63,10 @@ Tilemap::~Tilemap() {
 void Tilemap::drawTilemap(sf::RenderWindow & window) {
 	
 	//Tilemapin piirt‰minen
-	for (int i = 0; i < loadCounter.x; i++) {
-		for (int j = 0; j < loadCounter.y; j++) {
+	for (int i = 0; i < map.size(); i++) {
+		for (int j = 0; j < map[i].size(); j++) {
 			if (map[i][j].x != -1 && map[i][j].y != -1) {
-				tiles.setPosition(i * 40, j * 40);
+				tiles.setPosition(j * 40, i * 40);
 				tiles.setTextureRect(sf::IntRect(map[i][j].x * 40, map[i][j].y * 40, 40, 40));
 				window.draw(tiles);
 			}

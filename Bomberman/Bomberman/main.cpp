@@ -1,31 +1,63 @@
-
 #include <iostream>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <fstream>
 #include <cctype>
 #include <string>
+#include <thread>
 #include "Gamestatus.h"
 #include "Tilemap.h"
 #include "Character.h"
 #include "Animation.h"
+#include "CollisionMap.h"
+#include "Game.h"
+
 
 using namespace std;
 
 int main() {
 
-	// Animaation muuttujia
-	int call = 0;
-	int movefactor = 300;
 
-	//Ikkunan luonti
+
+	Tilemap						lvl1;
+
 	sf::RenderWindow		window(sf::VideoMode(800, 800), "Bomberman");
 
-	//Pelitilan olio
 	Gamestatus				gs;
 
+	CollisionMap			col1;
+
+	sf::Clock clock;
+
+	sf::Time time;
+
+
+	void bombdelay();
+	void display();
+
+
+
+
+
+
+	
+	// Animaation muuttujia
+	int call = 0;
+	int movefactor = 100;
+
+	//Ikkunan luonti
+
+
+	//Pelitilan olio
+
+
 	//Ensimmäisen kentän luonti
-	Tilemap					lvl1;
+
+
+	//Collisionmap
+
+
+
 
 	//Characterin luonti
 	sf::Texture pTexture;
@@ -34,6 +66,7 @@ int main() {
 	}
 
 	Character				p1(pTexture);
+	Character				p2(pTexture);
 
 	// Pommin luonti
 	sf::Texture pBomb;
@@ -41,15 +74,20 @@ int main() {
 		cerr << "Bomb texture error" << endl;
 	}
 
-	Animation				bomb(pBomb);
 
 
-
+	//Pelaajan paikan sijoitus
+	p1.setStartingPosition(160,160);
+	p2.setStartingPosition(720, 720);
 
 	//LEVEL1 Tilemapin alustus
 	lvl1.init();
+	
+	//LEVEL1 Collisionmapin alustus
+	col1.initColMap("lvl1col.txt");
 
 	// IKKUNAN WHILELOOP
+	
 	while (window.isOpen()) {
 
 		// check all the window's events that were triggered since the last iteration of the loop
@@ -62,17 +100,23 @@ int main() {
 		}
 
 		if (gs.getgamestatus() == 0) {
+			//Timer
+			time = clock.getElapsedTime();
 
+			//cout << delay.asSeconds() << endl;
 
 			window.clear();
 
 			//Tilemapin piirtäminen
 			lvl1.drawTilemap(window);
+			//CollisionMapin piirtäminen
+			col1.setColMap(p1);
 
 
-			//Pelaajan piirto ja ohjaus
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //move up
+			//Pelaajan 1 piirto ja ohjaus
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && col1.getCollision() == false) //move up
 			{
+				//CHECK BOTTOM COLLISION
 				if (call < movefactor * 1) p1.moveUp(0);
 				else if (call < movefactor * 2) p1.moveUp(40);
 				else if (call < movefactor * 3) p1.moveUp(0);
@@ -82,6 +126,7 @@ int main() {
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //move down
 			{
+				//CHECK TOP COLLISION
 				if (call < movefactor * 1) p1.moveDown(0);
 				else if (call < movefactor * 2) p1.moveDown(40);
 				else if (call < movefactor * 3) p1.moveDown(0);
@@ -91,6 +136,7 @@ int main() {
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //move right
 			{
+				//CHECK LEFT COLLISION
 				if (call < movefactor * 1) p1.moveRight(0);
 				else if (call < movefactor * 2) p1.moveRight(40);
 				else if (call < movefactor * 3) p1.moveRight(0);
@@ -100,6 +146,7 @@ int main() {
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //move left
 			{
+				//CHECK RIGHT COLLISION
 				if (call < movefactor * 1) p1.moveLeft(0);
 				else if (call < movefactor * 2) p1.moveLeft(40);
 				else if (call < movefactor * 3) p1.moveLeft(0);
@@ -109,11 +156,88 @@ int main() {
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) //Drop bomb
 			{
-				bomb.dropBomb();
+
+
+
 			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::N)) //Drop bomb
+			{
+				p1.setSpeed(3);
+			}
+			else if (event.type == sf::Event::KeyReleased) {
+				switch (event.key.code) {
+				case sf::Keyboard::N:
+
+					p1.setSpeed(2);
+				}
+			}
+
+
+			//Pelaajan 2 piirto ja ohjaus
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) //move up
+			{
+				if (call < movefactor * 1) p2.moveUp(0);
+				else if (call < movefactor * 2) p2.moveUp(40);
+				else if (call < movefactor * 3) p2.moveUp(0);
+				else p2.moveUp(80);
+				call++;
+				if (call == movefactor * 4) call = 0;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) //move down
+			{
+				if (call < movefactor * 1) p2.moveDown(0);
+				else if (call < movefactor * 2) p2.moveDown(40);
+				else if (call < movefactor * 3) p2.moveDown(0);
+				else p2.moveDown(80);
+				call++;
+				if (call == movefactor * 4) call = 0;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) //move right
+			{
+				if (call < movefactor * 1) p2.moveRight(0);
+				else if (call < movefactor * 2) p2.moveRight(40);
+				else if (call < movefactor * 3) p2.moveRight(0);
+				else p2.moveRight(80);
+				call++;
+				if (call == movefactor * 4) call = 0;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) //move left
+			{
+				if (call < movefactor * 1) p2.moveLeft(0);
+				else if (call < movefactor * 2) p2.moveLeft(40);
+				else if (call < movefactor * 3) p2.moveLeft(0);
+				else p2.moveLeft(80);
+				call++;
+				if (call == movefactor * 4) call = 0;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::PageDown)) //Drop bomb
+			{
+			}
+
+
 			window.draw(p1);
+			window.draw(p2);
 			window.display();
+
 		}
 	}
 }
+
+
+
+
+
+void bombdelay() {
+	sf::Clock delayclock;
+	sf::Time delay;
+	delay = delayclock.getElapsedTime();
+	delayclock.restart();
+	cout << "asd" << endl;
+	while (delayclock.getElapsedTime().asSeconds() < 3) {
+	}
+	cout << "KABOOOOOM!!!!" << endl;
+
+}
+
 

@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
+using namespace std;
+
 class Character : public sf::Drawable {
 
 public:
@@ -12,7 +14,7 @@ public:
 
 	//Konstruktori
 	Character(const sf::Texture& imagePath);
-
+	bool				collision = false;
 	//Destruktori
 	virtual				~Character();
 
@@ -35,9 +37,14 @@ public:
 	void setHealth(int hp);
 	int getHealth();
 	void setStartingPosition(int, int);
-	int getPositionX();
-	int getPositionY();
+	float getPositionX();
+	float getPositionY();
+	int getColHeight();
 	void setSpeed(float);
+	void setLastY(float);
+	void setLastX(float);
+
+
 
 private:
 	sf::Sprite			pSprite;
@@ -45,9 +52,10 @@ private:
 	int					width, height;
 	int					health;
 	int					colHeight;
-	int					posX;
-	int					posY;
-	float				speed = 0.8f;
+	float				posX;
+	float				posY;
+
+	float				speed = 2;
 };
 
 #endif
