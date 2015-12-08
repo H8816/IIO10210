@@ -21,8 +21,8 @@ void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 //Liikkeet
 void Character::moveUp(int rightcoord) {
 	pSource.y = up;
-	pSprite.move(0, -0.1*speed);
-	this->posY = posY - 0.1 * speed;
+	pSprite.move(0, -0.5*speed);
+	this->posY = posY - 0.5 * speed;
 
 	pSprite.setTextureRect(sf::IntRect(rightcoord, 0, 40, 40));
 
@@ -34,8 +34,8 @@ void Character::moveUp(int rightcoord) {
 
 void Character::moveDown(int downcoord) {
 	pSource.y = down;
-	pSprite.move(0, +0.1*speed);
-	this->posY = posY + speed * 0.1;
+	pSprite.move(0, +0.5*speed);
+	this->posY = posY + speed * 0.5;
 	pSprite.setTextureRect(sf::IntRect(downcoord, 80, 40, 40));
 
 	//Animaatio
@@ -44,8 +44,8 @@ void Character::moveDown(int downcoord) {
 }
 void Character::moveLeft(int leftcoord) {
 	pSource.x = left;
-	pSprite.move(-0.1*speed, 0);
-	this->posX = posX - 0.1 * speed;
+	pSprite.move(-0.5*speed, 0);
+	this->posX = posX - 0.5 * speed;
 	pSprite.setTextureRect(sf::IntRect(leftcoord, 120, 40, 40));
 
 	//Animaatio
@@ -54,8 +54,8 @@ void Character::moveLeft(int leftcoord) {
 
 void Character::moveRight(int rightcoord) {
 	pSource.x = right;
-	pSprite.move(+0.1*speed, 0);
-	this->posX = posX + 0.1 * speed;
+	pSprite.move(+0.5*speed, 0);
+	this->posX = posX + 0.5 * speed;
 	pSprite.setTextureRect(sf::IntRect(rightcoord, 40, 40, 40));
 
 	//Animaatio

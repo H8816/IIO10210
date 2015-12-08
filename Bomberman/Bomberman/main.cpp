@@ -10,7 +10,7 @@
 #include "Character.h"
 #include "Animation.h"
 #include "CollisionMap.h"
-#include "Game.h"
+
 
 
 using namespace std;
@@ -26,6 +26,7 @@ int main() {
 	Gamestatus				gs;
 
 	CollisionMap			col1;
+	CollisionMap			col2;
 
 	sf::Clock clock;
 
@@ -78,13 +79,14 @@ int main() {
 
 	//Pelaajan paikan sijoitus
 	p1.setStartingPosition(160,160);
-	p2.setStartingPosition(720, 720);
+	p2.setStartingPosition(620, 620);
 
 	//LEVEL1 Tilemapin alustus
 	lvl1.init();
 	
 	//LEVEL1 Collisionmapin alustus
 	col1.initColMap("lvl1col.txt");
+	col2.initColMap("lvl1col.txt");
 
 	// IKKUNAN WHILELOOP
 	
@@ -111,6 +113,7 @@ int main() {
 			lvl1.drawTilemap(window);
 			//CollisionMapin piirtäminen
 			col1.setColMap(p1);
+			col2.setColMap(p2);
 
 
 			//Pelaajan 1 piirto ja ohjaus
@@ -124,7 +127,7 @@ int main() {
 				call++;
 				if (call == movefactor * 4) call = 0;
 			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //move down
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && col1.getCollision() == false) //move down
 			{
 				//CHECK TOP COLLISION
 				if (call < movefactor * 1) p1.moveDown(0);
@@ -134,7 +137,7 @@ int main() {
 				call++;
 				if (call == movefactor * 4) call = 0;
 			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //move right
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && col1.getCollision() == false) //move right
 			{
 				//CHECK LEFT COLLISION
 				if (call < movefactor * 1) p1.moveRight(0);
@@ -144,7 +147,7 @@ int main() {
 				call++;
 				if (call == movefactor * 4) call = 0;
 			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //move left
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && col1.getCollision() == false) //move left
 			{
 				//CHECK RIGHT COLLISION
 				if (call < movefactor * 1) p1.moveLeft(0);
@@ -175,7 +178,7 @@ int main() {
 
 
 			//Pelaajan 2 piirto ja ohjaus
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) //move up
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && col2.getCollision() == false) //move up
 			{
 				if (call < movefactor * 1) p2.moveUp(0);
 				else if (call < movefactor * 2) p2.moveUp(40);
@@ -184,7 +187,7 @@ int main() {
 				call++;
 				if (call == movefactor * 4) call = 0;
 			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) //move down
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && col2.getCollision() == false) //move down
 			{
 				if (call < movefactor * 1) p2.moveDown(0);
 				else if (call < movefactor * 2) p2.moveDown(40);
@@ -193,7 +196,7 @@ int main() {
 				call++;
 				if (call == movefactor * 4) call = 0;
 			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) //move right
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && col2.getCollision() == false) //move right
 			{
 				if (call < movefactor * 1) p2.moveRight(0);
 				else if (call < movefactor * 2) p2.moveRight(40);
@@ -202,7 +205,7 @@ int main() {
 				call++;
 				if (call == movefactor * 4) call = 0;
 			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) //move left
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && col2.getCollision() == false) //move left
 			{
 				if (call < movefactor * 1) p2.moveLeft(0);
 				else if (call < movefactor * 2) p2.moveLeft(40);

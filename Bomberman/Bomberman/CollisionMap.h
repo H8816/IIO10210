@@ -16,7 +16,7 @@ using namespace std;
 class CollisionMap {
 
 private:
-	bool collision = false;
+	bool collision;
 public:
 	vector<vector<int>>	colMap;
 	vector<int>			tempMap;

@@ -1,7 +1,7 @@
 #include "CollisionMap.h"
 
 CollisionMap::CollisionMap() {
-
+	this->collision = false;
 }
 
 CollisionMap::~CollisionMap() {
@@ -57,10 +57,10 @@ void CollisionMap::setColMap(Character p) {
 					collideBottom(p);
 				}
 				else if (p.getPositionY() > bottom) {
-						collideTop(p);
+					collideTop(p);
 				}
 				else if (p.getPositionX() + 40 > left) {
-						collideLeft(p);
+					collideLeft(p);
 				}
 				else if (p.getPositionX() < right) {
 					collideRight(p);
@@ -73,21 +73,65 @@ void CollisionMap::setColMap(Character p) {
 void CollisionMap::collideLeft(Character p) {
 	p.moveRight(0);
 	cout << "collideLeft!" << endl;
+	this->collision = true;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		this->collision = false;
+	}
+	/*else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		this->collision = false;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		this->collision = false;
+	}*/
 }
 
 void CollisionMap::collideRight(Character p) {
 	p.moveLeft(0);
 	cout << "collideRight!" << endl;
+	this->collision = true;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		this->collision = false;
+	}
+	/*else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		this->collision = false;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		this->collision = false;
+	}*/
 }
 
 void CollisionMap::collideTop(Character p) {
 	p.moveDown(0);
 	cout << "collideTop!" << endl;
+	this->collision = true;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		this->collision = false;
+	}
+	/*else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		this->collision = false;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		this->collision = false;
+	}*/
 }
 
 void CollisionMap::collideBottom(Character p) {
 	p.moveUp(0);
 	cout << "collideBot!" << endl;
+	this->collision = true;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		this->collision = false;
+	}
+	/*else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		this->collision = false;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		this->collision = false;
+	}*/
 }
 
 bool CollisionMap::getCollision() {
@@ -95,5 +139,5 @@ bool CollisionMap::getCollision() {
 }
 
 void CollisionMap::pass() {
-	this->collision = false;
+	//this->collision = false;
 } 

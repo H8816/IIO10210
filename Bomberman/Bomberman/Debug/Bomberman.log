@@ -1,2 +1,8 @@
-﻿  main.cpp
-  Bomberman.vcxproj -> C:\Users\Huuhka\Desktop\koulujutut\Github\IIO10210\Bomberman\Debug\Bomberman.exe
+﻿  CollisionMap.cpp
+g:\olio2\iio10210\bomberman\bomberman\collisionmap.cpp(44): warning C4018: '<': signed/unsigned mismatch
+g:\olio2\iio10210\bomberman\bomberman\collisionmap.cpp(45): warning C4018: '<': signed/unsigned mismatch
+g:\olio2\iio10210\bomberman\bomberman\collisionmap.cpp(48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+g:\olio2\iio10210\bomberman\bomberman\collisionmap.cpp(49): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+g:\olio2\iio10210\bomberman\bomberman\collisionmap.cpp(50): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+g:\olio2\iio10210\bomberman\bomberman\collisionmap.cpp(51): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Bomberman.vcxproj -> G:\olio2\IIO10210\Bomberman\Debug\Bomberman.exe
