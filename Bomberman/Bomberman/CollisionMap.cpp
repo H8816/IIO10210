@@ -70,68 +70,52 @@ void CollisionMap::setColMap(Character p) {
 		}
 	}
 }
-void CollisionMap::collideLeft(Character p) {
+void CollisionMap::collideLeft(Character p) { // kun pelaaja törmää, collision muutetaan true:ksi
+	this->collision = true;
 	p.moveRight(0);
 	cout << "collideLeft!" << endl;
-	this->collision = true;
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+	
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::D) || // pelaajan yksi collision
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { // pelaajan kaksi collision
 		this->collision = false;
 	}
-	/*else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		this->collision = false;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		this->collision = false;
-	}*/
 }
 
-void CollisionMap::collideRight(Character p) {
+void CollisionMap::collideRight(Character p) { // kun pelaaja törmää, collision muutetaan true:ksi
+	this->collision = true;
 	p.moveLeft(0);
 	cout << "collideRight!" << endl;
-	this->collision = true;
+	
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) || // pelaajan yksi collision
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) { // pelaajan kaksi collision
 		this->collision = false;
 	}
-	/*else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		this->collision = false;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		this->collision = false;
-	}*/
 }
 
-void CollisionMap::collideTop(Character p) {
+void CollisionMap::collideTop(Character p) { // kun pelaaja törmää, collision muutetaan true:ksi
+	this->collision = true;
 	p.moveDown(0);
 	cout << "collideTop!" << endl;
-	this->collision = true;
+	
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D) || // pelaajan yksi collision
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { // pelaajan kaksi collision
 		this->collision = false;
 	}
-	/*else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		this->collision = false;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		this->collision = false;
-	}*/
 }
 
-void CollisionMap::collideBottom(Character p) {
+void CollisionMap::collideBottom(Character p) { // kun pelaaja törmää, collision muutetaan true:ksi
+	this->collision = true;
 	p.moveUp(0);
 	cout << "collideBot!" << endl;
-	this->collision = true;
+	
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D) || // pelaajan yksi collision
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { // pelaajan kaksi collision
 		this->collision = false;
 	}
-	/*else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		this->collision = false;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		this->collision = false;
-	}*/
 }
 
 bool CollisionMap::getCollision() {
@@ -139,5 +123,5 @@ bool CollisionMap::getCollision() {
 }
 
 void CollisionMap::pass() {
-	//this->collision = false;
+	
 } 

@@ -10,6 +10,7 @@
 #include "Character.h"
 #include "Animation.h"
 #include "CollisionMap.h"
+#include "Bomb.h"
 
 
 
@@ -17,79 +18,99 @@ using namespace std;
 
 int main() {
 
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//OLIOT///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	//TÌleMap	
+	Tilemap							lvl1;
 
-	Tilemap						lvl1;
+	//Ikkuna
+	sf::RenderWindow				window(sf::VideoMode(800, 800), "Bomberman");
 
-	sf::RenderWindow		window(sf::VideoMode(800, 800), "Bomberman");
+	//Gamestatus
+	Gamestatus						gs;
 
-	Gamestatus				gs;
+	//Collisionmap kummallekin pelaajalle
+	CollisionMap					col1;
+	CollisionMap					col2;
 
-	CollisionMap			col1;
-	CollisionMap			col2;
+	//Pommi
+	Bomb							pommi;
 
+	//Pommilaskuri
+	int pommilaskuri = 0;
+
+	//Ajan laskeminen, pommeja varten
 	sf::Clock clock;
-
+	Bomb bomb;
 	sf::Time time;
+	//pommin aika counterit, m‰‰r‰‰ miten pommi k‰ytt‰ytyy
+	int								counter = 0;
+	int								bombcounter = 0;
+	int								fireCounter = 0;
+	int								timerCounter = 0;
 
-
-	void bombdelay();
-	void display();
-
-
-
-
-
-
-	
 	// Animaation muuttujia
-	int call = 0;
-	int movefactor = 100;
-
-	//Ikkunan luonti
+	int								call = 0;
+	int								movefactor = 100;
 
 
-	//Pelitilan olio
+	//Pommin textuuri//////////////////////////////////////////////////
+	sf::Sprite						pommitus;
+	sf::Texture						bTexture;
+	if (!bTexture.loadFromFile("bomb.png")) {
+		cerr << "Character texture error" << endl;
+	}
 
 
-	//Ensimm‰isen kent‰n luonti
-
-
-	//Collisionmap
-
+	//Liekkien textuuri/////////////////////////////////////////////
+	sf::Sprite						fire;
+	sf::Texture						fireTexture;
+	if (!fireTexture.loadFromFile("fire.png")) {
+		cerr << "Character texture error" << endl;
+	}
 
 
 
 	//Characterin luonti
-	sf::Texture pTexture;
+	sf::Texture						pTexture;
 	if (!pTexture.loadFromFile("liikkeet.png")) {
 		cerr << "Character texture error" << endl;
 	}
 
-	Character				p1(pTexture);
-	Character				p2(pTexture);
+	Character						p1(pTexture);
+	Character						p2(pTexture);
 
-	// Pommin luonti
-	sf::Texture pBomb;
-	if (!pBomb.loadFromFile("bomb.png")) {
-		cerr << "Bomb texture error" << endl;
-	}
+
+
+
+
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 	//Pelaajan paikan sijoitus
-	p1.setStartingPosition(160,160);
+	p1.setStartingPosition(160, 160);
 	p2.setStartingPosition(620, 620);
 
 	//LEVEL1 Tilemapin alustus
 	lvl1.init();
-	
+
 	//LEVEL1 Collisionmapin alustus
 	col1.initColMap("lvl1col.txt");
 	col2.initColMap("lvl1col.txt");
 
 	// IKKUNAN WHILELOOP
-	
+
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//PELI LOOPPI///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 	while (window.isOpen()) {
 
 		// check all the window's events that were triggered since the last iteration of the loop
@@ -101,6 +122,11 @@ int main() {
 				window.close();
 		}
 
+		///////////////////////////////////////////////////////////////////////////////////////////
+		//GameStatuksen valinta////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////
+
+
 		if (gs.getgamestatus() == 0) {
 			//Timer
 			time = clock.getElapsedTime();
@@ -109,17 +135,29 @@ int main() {
 
 			window.clear();
 
+			////////////////////////////////////////////////////////////////////////////////
+			//TILEMAP JA COLMAP/////////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////////////////////////////
+
 			//Tilemapin piirt‰minen
 			lvl1.drawTilemap(window);
+
 			//CollisionMapin piirt‰minen
 			col1.setColMap(p1);
 			col2.setColMap(p2);
 
+			///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			//Pelaajan 1 piirto ja ohjaus/////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-			//Pelaajan 1 piirto ja ohjaus
+
+			/////////////////////////////////////////////////////
+			//Ohjaus A,S,D,W/////////////////////////////////////
+			////////////////////////////////////////////////////
+
+			//Ylˆsp‰in
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && col1.getCollision() == false) //move up
 			{
-				//CHECK BOTTOM COLLISION
 				if (call < movefactor * 1) p1.moveUp(0);
 				else if (call < movefactor * 2) p1.moveUp(40);
 				else if (call < movefactor * 3) p1.moveUp(0);
@@ -127,9 +165,10 @@ int main() {
 				call++;
 				if (call == movefactor * 4) call = 0;
 			}
+
+			//Alasp‰in
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && col1.getCollision() == false) //move down
 			{
-				//CHECK TOP COLLISION
 				if (call < movefactor * 1) p1.moveDown(0);
 				else if (call < movefactor * 2) p1.moveDown(40);
 				else if (call < movefactor * 3) p1.moveDown(0);
@@ -137,9 +176,10 @@ int main() {
 				call++;
 				if (call == movefactor * 4) call = 0;
 			}
+
+			//Oikealle
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && col1.getCollision() == false) //move right
 			{
-				//CHECK LEFT COLLISION
 				if (call < movefactor * 1) p1.moveRight(0);
 				else if (call < movefactor * 2) p1.moveRight(40);
 				else if (call < movefactor * 3) p1.moveRight(0);
@@ -147,9 +187,9 @@ int main() {
 				call++;
 				if (call == movefactor * 4) call = 0;
 			}
+			//Vasemmalle
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && col1.getCollision() == false) //move left
 			{
-				//CHECK RIGHT COLLISION
 				if (call < movefactor * 1) p1.moveLeft(0);
 				else if (call < movefactor * 2) p1.moveLeft(40);
 				else if (call < movefactor * 3) p1.moveLeft(0);
@@ -157,14 +197,27 @@ int main() {
 				call++;
 				if (call == movefactor * 4) call = 0;
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) //Drop bomb
+
+			//POMMI//////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////////////
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::B) && timerCounter == 0)
 			{
+				clock.restart();
+				bombcounter = 1;
+				timerCounter = 1;
+				float pomposX = p1.getPositionX();
+				float pomposY = p1.getPositionY();
 
+				pommi.setPosX(pomposX);
+				pommi.setPosY(pomposY);
 
-
+				pommitus.setTexture(bTexture);
+				pommitus.setPosition(pomposX, pomposY);
 			}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::N)) //Drop bomb
+			//Sprint///////////////////////////
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::N))
 			{
 				p1.setSpeed(3);
 			}
@@ -176,8 +229,11 @@ int main() {
 				}
 			}
 
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			//Pelaajan 2 piirto ja ohjaus////////////////////////////////////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-			//Pelaajan 2 piirto ja ohjaus
+			//Ylˆsp‰in///////////////////////////////////////////////////////////////////////////////////////
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && col2.getCollision() == false) //move up
 			{
 				if (call < movefactor * 1) p2.moveUp(0);
@@ -187,6 +243,8 @@ int main() {
 				call++;
 				if (call == movefactor * 4) call = 0;
 			}
+
+			//Alasp‰in/////////////////////////////////////////////////////////////////////////////////////
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && col2.getCollision() == false) //move down
 			{
 				if (call < movefactor * 1) p2.moveDown(0);
@@ -196,6 +254,8 @@ int main() {
 				call++;
 				if (call == movefactor * 4) call = 0;
 			}
+
+			//Oikealle//////////////////////////////////////////////////////////////////////////////////////
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && col2.getCollision() == false) //move right
 			{
 				if (call < movefactor * 1) p2.moveRight(0);
@@ -205,6 +265,8 @@ int main() {
 				call++;
 				if (call == movefactor * 4) call = 0;
 			}
+
+			//Vasemmalle////////////////////////////////////////////////////////////////////////////////////
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && col2.getCollision() == false) //move left
 			{
 				if (call < movefactor * 1) p2.moveLeft(0);
@@ -214,13 +276,63 @@ int main() {
 				call++;
 				if (call == movefactor * 4) call = 0;
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::PageDown)) //Drop bomb
-			{
+
+			//Pommi
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::PageDown)) { //Drop bomb
 			}
 
+			//Pommin r‰j‰hdyksen ajastus 3 sekunttia pommin j‰tt‰misen j‰lkeen
+			if (clock.getElapsedTime().asSeconds() > 3) {
+				if (bombcounter == 1) {
+					counter = 1;
+					bombcounter = 0;
+				}
+			}
 
+			//Pommin liekkien ajastus, pyyhkii liekin pois n‰kyvist‰
+			if (clock.getElapsedTime().asSeconds() > 4) {
+				if (timerCounter == 0) {
+					fireCounter = 0;
+				}
+			}
+
+			//Pommin r‰j‰hdys
+			if (counter == 1) {
+				counter = 0;
+				cout << "KABOOM!" << endl;
+				//Liekkien kuvan positio kun pommi on r‰j‰ht‰nyt
+				float fposx = pommi.getPosX() - 40;
+				float fposy = pommi.getPosY() - 40;
+				fire.setTexture(fireTexture);
+				fire.setPosition(fposx, fposy);
+				fireCounter = 1;
+				// Pommilaskuri lis‰‰ yhden lis‰‰
+				pommilaskuri++;
+				cout << "Pommeja rajahtanyt " << pommilaskuri << endl;
+				// Kirjoittaa tiedostoon
+				std::ofstream ofs("pommi.txt", std::ofstream::out);
+
+				ofs << "pommeja rajahtanyt viime pelissa: " << pommilaskuri << " kpl" << endl; ;
+
+				ofs.close();
+
+			}
+
+			//cout << clock.getElapsedTime().asSeconds() << endl;
+
+			//Pelaajien piirt‰minen
 			window.draw(p1);
 			window.draw(p2);
+			//Pommin piirto mik‰li b n‰pp‰in on painettu, 3 sekunnin viive.
+			if (bombcounter == 1) {
+				window.draw(pommitus);
+			}
+			//Liekkien piirto, 4 sekunnin viiveell‰ b painamisesta
+			if (fireCounter == 1) {
+				window.draw(fire);
+				timerCounter = 0;
+			}
+
 			window.display();
 
 		}
@@ -228,19 +340,5 @@ int main() {
 }
 
 
-
-
-
-void bombdelay() {
-	sf::Clock delayclock;
-	sf::Time delay;
-	delay = delayclock.getElapsedTime();
-	delayclock.restart();
-	cout << "asd" << endl;
-	while (delayclock.getElapsedTime().asSeconds() < 3) {
-	}
-	cout << "KABOOOOOM!!!!" << endl;
-
-}
 
 
